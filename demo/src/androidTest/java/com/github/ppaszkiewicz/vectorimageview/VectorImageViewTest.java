@@ -1,8 +1,6 @@
 package com.github.ppaszkiewicz.vectorimageview;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.AppCompatImageView;
@@ -47,7 +45,7 @@ public class VectorImageViewTest {
     @Test
     public void vectorViewTest() {
         VectorImageView vectorImageView = new VectorImageView(context);
-        vectorImageView.setVectorsDrawable(R.drawable.ic_android_selector);
-        vectorImageView.setVectorsDrawable(R.drawable.ic_android_level_list);
+        vectorImageView.setVectorsDrawableResource(R.drawable.ic_android_selector);
+        vectorImageView.setVectorsDrawableResource(R.drawable.ic_android_level_list);
     }
 }

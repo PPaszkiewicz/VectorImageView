@@ -17,8 +17,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.github.ppaszkiewicz.vectorimagelib.R;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -69,18 +67,19 @@ public class VectorImageView extends AppCompatImageView {
             mIgnoreMissingAttributes = a.getBoolean(R.styleable.VectorImageView_vectorImageViewIgnoreMissingAttributes, false);
             int vectorsDrawableRes = a.getResourceId(R.styleable.VectorImageView_vectorImageViewSrc, 0);
             if (vectorsDrawableRes != 0) {
-                setVectorsDrawable(vectorsDrawableRes);
+                setVectorsDrawableResource(vectorsDrawableRes);
             }
             a.recycle();
         }
     }
 
     /**
-     * Even more compat version of {@link #setImageResource(int)} to use below lollipop.
+     * Explicitly use level-list or selector consisting of vector drawables. <br>
+     * For api 21 or higher this is equal to {@link #setImageResource(int)}.
      *
      * @param vectorsDrawable state-list or level-list drawable with vector items
      */
-    public void setVectorsDrawable(@DrawableRes int vectorsDrawable) {
+    public void setVectorsDrawableResource(@DrawableRes int vectorsDrawable) {
         mViewInvalidator.setVectorsCompat(vectorsDrawable);
     }
 
@@ -193,7 +192,7 @@ public class VectorImageView extends AppCompatImageView {
                         parseStateList(xmp);
                         break;
                     } else if (xmp.getDepth() > 2) {
-                        Log.e(TAG, "setVectorsDrawable: missed start tag " + xmp.getDepth());
+                        Log.e(TAG, "setVectorsDrawableResource: missed start tag " + xmp.getDepth());
                         break;
                     }
                     xmp.next();
@@ -207,7 +206,7 @@ public class VectorImageView extends AppCompatImageView {
 
             if (mLevelResources.isEmpty() && mStateResources.isEmpty()) {
                 //invalid argument?
-                Log.w(TAG, "setVectorsDrawable: Provided vector drawable is not a selector or level-list " + getContext().getResources().getResourceName(vectorsDrawable) + ", trying to use native call...");
+                Log.w(TAG, "setVectorsDrawableResource: Provided vector drawable is not a selector or level-list " + getContext().getResources().getResourceName(vectorsDrawable) + ", trying to use native call...");
                 setImageResource(vectorsDrawable);
             }
             invalidate();

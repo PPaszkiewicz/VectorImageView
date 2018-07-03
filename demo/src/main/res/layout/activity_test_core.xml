@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/activity_native">
+
+
+    <TextView
+        android:id="@+id/clickmeHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clickableAbout"
+        app:layout_constraintStart_toStartOf="@+id/clickableImg"
+        app:layout_constraintTop_toBottomOf="@+id/clickableImg" />
+
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/checkbox"
+        android:text="Selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/clickableImg"
+        app:layout_constraintTop_toTopOf="@id/clickableImg"
+        app:layout_constraintBottom_toBottomOf="@id/clickableImg"
+        />
+
+    <TextView
+        android:id="@+id/levelHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/levelListAbout"
+        app:layout_constraintStart_toStartOf="@+id/levelImg"
+        app:layout_constraintTop_toBottomOf="@+id/levelImg" />
+
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/seek"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="6"
+        app:layout_constraintBottom_toBottomOf="@id/levelImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/levelImg"
+        app:layout_constraintTop_toTopOf="@id/levelImg" />
+
+    <TextView
+        android:id="@+id/seekValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/levelImg"
+        app:layout_constraintTop_toBottomOf="@+id/seek" />
+</merge>
