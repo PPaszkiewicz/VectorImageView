@@ -26,7 +26,6 @@ import java.util.ArrayList;
 /**
  * Image view that displays state-list (selector) and level-list drawables with vector values.
  * <p>use app:vectorImageViewSrc to provide drawable resource.</p>
- * <p>Call {@link #releaseVectorImageData()} if replacing selector or level-list with regular drawable</p>
  */
 public class VectorImageView extends AppCompatImageView {
     private final static String ANDROID_NS = "http://schemas.android.com/apk/res/android";
@@ -83,22 +82,20 @@ public class VectorImageView extends AppCompatImageView {
         mViewInvalidator.setVectorsCompat(vectorsDrawable);
     }
 
+    @Override
+    public void setImageDrawable(@Nullable Drawable drawable) {
+        mViewInvalidator.releaseVectorImageData();
+        super.setImageDrawable(drawable);
+    }
+
     /**
-     * Set if view should crash if it can't parse all attributes. By default <code>false</code>. This
+     * Set if view should crash if it can't parse all attributes from xml file. By default <code>false</code>. This
      * usually should not be called aside from testing.
      *
      * @param ignore true to ignore errors
      */
     public void setIgnoreMissingAttributes(boolean ignore) {
         mIgnoreMissingAttributes = ignore;
-    }
-
-    /**
-     * Clean stored vector data, this is necessary only if selector or level-list was set and normal drawable is being put in here.
-     * <p>This does nothing in Lollipop.</p>
-     */
-    public void releaseVectorImageData() {
-        mViewInvalidator.releaseVectorImageData();
     }
 
     @Override
@@ -173,6 +170,7 @@ public class VectorImageView extends AppCompatImageView {
 
         @SuppressLint("ResourceType")
         void setVectorsCompat(@DrawableRes int vectorsDrawable) {
+            releaseVectorImageData();
             //manually parse XML of drawables
             XmlResourceParser xmp = getContext().getResources().getXml(vectorsDrawable);
             try{
@@ -338,7 +336,7 @@ public class VectorImageView extends AppCompatImageView {
             if (imgResource != mCurrentImageResource) {
                 mCurrentImageResource = imgResource;
                 //this triggers invalidate
-                setImageResource(imgResource);
+                VectorImageView.super.setImageResource(imgResource);
             }
         }
 
@@ -367,7 +365,7 @@ public class VectorImageView extends AppCompatImageView {
     private class ViewInvalidator21 extends ViewInvalidator {
         @Override
         void setVectorsCompat(int vectorsDrawable) {
-            setImageResource(vectorsDrawable);
+            VectorImageView.super.setImageResource(vectorsDrawable);
         }
 
         @Override
