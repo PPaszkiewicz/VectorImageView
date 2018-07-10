@@ -1,9 +1,12 @@
 # Vector Image View
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 Displays state-list drawable and level-list drawables with vector drawables without crashing below Lollipop.
 
-Support vectors work good for static drawables, but more dynamic ones are not handled properly.
-This ImageView works around the issue by parsing `selector` and `level-list` drawable xml files, and swapping drawables dynamically as ImageView state changes.
+Support vectors work good for single drawables, but more dynamic ones are not handled properly.
+This ImageView works around the issue by parsing `selector` and `level-list` drawable xml files,
+ and swapping drawables dynamically as ImageView state changes.
 
 Does nothing for devices running Lollipop on higher aside from delegating to native implementation.
 
@@ -25,7 +28,7 @@ Add dependency:
     implementation "com.github.ppaszkiewicz:VectorImageView:1.0.0"
 ```
 
-Use in layout XML:
+Use `app:vectorImageViewSrc` in layout XML:
 
 ```xml
 <com.github.ppaszkiewicz.vectorimagelib.VectorImageView
@@ -42,19 +45,18 @@ Or set drawable resource in Java code:
 vectorImageView.setVectorsDrawableResource(R.drawable.custom_vector_selector);
 ```
 
+#### Image level
+
+If you need to obtain current image level use `getImageLevel` method for compat implementation.
+
+Reading vector image level directly from current drawable will always return 0 below API 21.
+
+## Testing
+
+Demo app contains instrumented tests that crashes ImageView (below API 21) when
+used with incompatible drawables, and VectorImageView that correctly works with them.
+
+Demo activity showcases behavior of normal ImageView and VectorImageView with selector and level-list drawables.
 
 ## License
-
-Copyright 2018 Paweł Paszkiewicz
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Apache 2.0

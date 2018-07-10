@@ -55,6 +55,7 @@ public class VectorImageView extends AppCompatImageView {
 
     //actual compat implementation, or calls to super above 21
     private final ViewInvalidator mViewInvalidator;
+    private boolean isUsingVectorDrawable = false;
 
     /**
      * This forces view to crash the app if invalid selector item attribute is provided. View might
@@ -96,11 +97,13 @@ public class VectorImageView extends AppCompatImageView {
      */
     public void setVectorsDrawableResource(@DrawableRes int vectorsDrawable) {
         mViewInvalidator.setVectorsCompat(vectorsDrawable);
+        isUsingVectorDrawable = true;
     }
 
     @Override
     public void setImageDrawable(@Nullable Drawable drawable) {
         mViewInvalidator.releaseVectorImageData();
+        isUsingVectorDrawable = false;
         super.setImageDrawable(drawable);
     }
 
@@ -130,7 +133,7 @@ public class VectorImageView extends AppCompatImageView {
      * level of image drawable.
      */
     public int getImageLevel() {
-        if (mViewInvalidator instanceof ViewInvalidatorCompat)
+        if (isUsingVectorDrawable && mViewInvalidator instanceof ViewInvalidatorCompat)
             return ((ViewInvalidatorCompat) mViewInvalidator).mImageLevel;
         else {
             Drawable d = getDrawable();
