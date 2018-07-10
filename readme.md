@@ -1,6 +1,7 @@
 # Vector Image View
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Release](https://jitpack.io/v/PPaszkiewicz/VectorImageView.svg)](https://jitpack.io/#User/Repo)
 
 Displays state-list drawable and level-list drawables with vector drawables without crashing below Lollipop.
 
@@ -25,7 +26,7 @@ android {
 Add dependency:
 
 ```gradle
-    implementation "com.github.ppaszkiewicz:VectorImageView:1.0.0"
+implementation "com.github.PPaszkiewicz:VectorImageView:1.0.0"
 ```
 
 Use `app:vectorImageViewSrc` in layout XML:
