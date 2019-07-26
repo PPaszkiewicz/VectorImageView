@@ -13,6 +13,17 @@ Does nothing for devices running Lollipop on higher aside from delegating to nat
 
 ### Usage:
 
+Add `jitpack.io` repository to your project level **build.gradle**:
+
+```gradle
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
 Ensure support vectors are enabled in your apps **build.gradle**:
 
 ```gradle
